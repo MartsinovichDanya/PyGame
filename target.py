@@ -7,11 +7,10 @@ def draw_targ(n, kol):
     for i in range(kol):
         if not (i + 1) % 3:
             pygame.draw.circle(screen, (0, 0, 255), centre, n*(i + 1), n)
-        elif not (i + 1) % 2:
+        elif (i + 1) % 3 == 2:
             pygame.draw.circle(screen, (0, 255, 0), centre, n*(i + 1), n)
         else:
             pygame.draw.circle(screen, (255, 0, 0), centre, n*(i + 1), n)
-
 
 pygame.init()
 uinput = [int(el) for el in input().split()]
