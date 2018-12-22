@@ -5,13 +5,13 @@ def draw_rect(n):
     screen.fill((0, 0, 0))
     x, y = 0, 0
     w, h = width // n, width // n
-    for i in range(n):
+    for i in range(n-1, -1, -1):
         x = 0
         for j in range(n):
             if not (i + j) % 2:
-                pygame.draw.rect(screen, (255, 255, 255), (x, y, w, h))
-            else:
                 pygame.draw.rect(screen, (0, 0, 0), (x, y, w, h))
+            else:
+                pygame.draw.rect(screen, (255, 255, 255), (x, y, w, h))
             x += w
         y += h
 
