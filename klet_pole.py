@@ -30,14 +30,13 @@ class Board:
 
     def on_click(self, cell_coords):
         x, y = cell_coords
-        for i in range(self.height):
-            for j in range(self.width):
-                if i == y or j == x:
-                    self.board[i][j] = int(not self.board[i][j])
+        if self.board[y][x] == 2:
+            self.board[y][x] = 0
+        else:
+            self.board[y][x] += 1
 
     def get_click(self, mouse_pos):
         cell = self.get_cell(mouse_pos)
-        print(cell)
         if cell:
             self.on_click(cell)
 
@@ -48,9 +47,13 @@ class Board:
                         self.top + self.cell_size * i,
                         self.cell_size,
                         self.cell_size)
-                if self.board[i][j]:
-                    pygame.draw.rect(screen, (255, 255, 255), rect)
-                else:
+                if self.board[i][j] == 0:
+                    pygame.draw.rect(screen, (255, 255, 255), rect, 1)
+                elif self.board[i][j] == 1:
+                    pygame.draw.rect(screen, (255, 0, 0), rect)
+                    pygame.draw.rect(screen, (255, 255, 255), rect, 1)
+                elif self.board[i][j] == 2:
+                    pygame.draw.rect(screen, (0, 0, 255), rect)
                     pygame.draw.rect(screen, (255, 255, 255), rect, 1)
 
 

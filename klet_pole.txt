@@ -1,3 +1,4 @@
 репозиторий: https://github.com/MartsinovichDanya/PyGame
 
-
+ветка - klet_pole2
+файл - klet_pole.py
