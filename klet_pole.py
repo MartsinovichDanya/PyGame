@@ -1,11 +1,17 @@
 import pygame
+# from random import randint
 
 
 class Board:
     # создание поля
+    # def fill(self, width, height):
+    #     self.board = [[0] * width for _ in range(height)]
+    #
+
     def __init__(self, width, height):
         self.width = width
         self.height = height
+        self.counter = 1
         self.board = [[''] * width for _ in range(height)]
         # значения по умолчанию
         self.left = 10
@@ -28,18 +34,19 @@ class Board:
             res_y = (y - self.top) // self.cell_size
             return res_x, res_y
 
-    def on_click(self, cell_coords, hod):
+    def on_click(self, cell_coords):
         x, y = cell_coords
         if self.board[y][x] == '':
-            if hod:
+            if bool(self.counter % 2):
                 self.board[y][x] = 'k'
             else:
                 self.board[y][x] = 'z'
+            self.counter += 1
 
-    def get_click(self, mouse_pos, hod):
+    def get_click(self, mouse_pos):
         cell = self.get_cell(mouse_pos)
         if cell:
-            self.on_click(cell, hod)
+            self.on_click(cell)
 
     def render(self):
         for i in range(self.height):
@@ -69,14 +76,12 @@ screen = pygame.display.set_mode(size)
 board = Board(3, 3)
 board.set_view(100, 100, 100)
 running = True
-counter = 1
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         if event.type == pygame.MOUSEBUTTONDOWN:
-            board.get_click(event.pos, bool(counter % 2))
-            counter += 1
+            board.get_click(event.pos)
     screen.fill((0, 0, 0))
     board.render()
     pygame.display.flip()
