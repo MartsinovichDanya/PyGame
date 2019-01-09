@@ -61,15 +61,13 @@ class Board:
                         self.cell_size,
                         self.cell_size)
                 if self.board[i][j] == 0:
-                    pygame.draw.circle(screen, (0, 0, 255),
-                                       (rect[0] + self.cell_size // 2,
-                                        rect[1] + self.cell_size // 2),
-                                       self.cell_size // 2 - 4)
+                    color = (0, 0, 255)
                 else:
-                    pygame.draw.circle(screen, (255, 0, 0),
-                                       (rect[0] + self.cell_size // 2,
-                                        rect[1] + self.cell_size // 2),
-                                       self.cell_size // 2 - 4)
+                    color = (255, 0, 0)
+                pygame.draw.circle(screen, color,
+                                   (rect[0] + self.cell_size // 2,
+                                    rect[1] + self.cell_size // 2),
+                                   self.cell_size // 2 - 4)
                 pygame.draw.rect(screen, (255, 255, 255), rect, 1)
 
 
@@ -78,13 +76,13 @@ size = width, height = 500, 500
 screen = pygame.display.set_mode(size)
 board = Board(8, 8)
 board.set_view(40, 40, 50)
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            running = False
-        if event.type == pygame.MOUSEBUTTONDOWN:
-            board.get_click(event.pos)
+while True:
+    event = pygame.event.wait()
+    if event.type == pygame.MOUSEBUTTONDOWN:
+        board.get_click(pygame.event.wait().pos)
+    elif event.type == pygame.QUIT:
+        break
     screen.fill((0, 0, 0))
     board.render()
     pygame.display.flip()
+pygame.quit()
