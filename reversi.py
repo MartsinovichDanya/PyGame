@@ -1,18 +1,24 @@
 import pygame
-# from random import randint
+from random import randint
 
 
 class Board:
-    # создание поля
-    # def fill(self, width, height):
-    #     self.board = [[0] * width for _ in range(height)]
-    #
+
+    def fill(self, width, height):
+        self.board = [[0] * width for _ in range(height)]
+        for i in range(width * height // 2):
+            x = randint(0, width - 1)
+            y = randint(0, height - 1)
+            while self.board[y][x] == 1:
+                x = randint(0, width - 1)
+                y = randint(0, height - 1)
+            self.board[y][x] = 1
 
     def __init__(self, width, height):
         self.width = width
         self.height = height
         self.counter = 1
-        self.board = [[''] * width for _ in range(height)]
+        self.fill(width, height)
         # значения по умолчанию
         self.left = 10
         self.top = 10
@@ -36,12 +42,11 @@ class Board:
 
     def on_click(self, cell_coords):
         x, y = cell_coords
-        if self.board[y][x] == '':
-            if bool(self.counter % 2):
-                self.board[y][x] = 'k'
-            else:
-                self.board[y][x] = 'z'
-            self.counter += 1
+        for i in range(self.height):
+            for j in range(self.width):
+                if (i == y or j == x) and self.board[i][j] != bool(self.counter % 2):
+                    self.board[i][j] = int(not self.board[i][j])
+        self.counter += 1
 
     def get_click(self, mouse_pos):
         cell = self.get_cell(mouse_pos)
@@ -55,26 +60,24 @@ class Board:
                         self.top + self.cell_size * i,
                         self.cell_size,
                         self.cell_size)
-                if self.board[i][j] == '':
-                    pygame.draw.rect(screen, (255, 255, 255), rect, 1)
-                elif self.board[i][j] == 'k':
-                    pygame.draw.line(screen, (0, 0, 255), (rect[0] + 2, rect[1] + 2),
-                                     (rect[0] + self.cell_size - 4, rect[1] + self.cell_size - 4), 2)
-                    pygame.draw.line(screen, (0, 0, 255), (rect[0] + 2, rect[1] + self.cell_size - 4),
-                                     (rect[0] + self.cell_size - 4, rect[1] + 2), 2)
-                    pygame.draw.rect(screen, (255, 255, 255), rect, 1)
-                elif self.board[i][j] == 'z':
+                if self.board[i][j] == 0:
+                    pygame.draw.circle(screen, (0, 0, 255),
+                                       (rect[0] + self.cell_size // 2,
+                                        rect[1] + self.cell_size // 2),
+                                       self.cell_size // 2 - 4)
+                else:
                     pygame.draw.circle(screen, (255, 0, 0),
-                                       (rect[0] + self.cell_size // 2, rect[1] + self.cell_size // 2),
-                                       self.cell_size // 2 - 4, 2)
-                    pygame.draw.rect(screen, (255, 255, 255), rect, 1)
+                                       (rect[0] + self.cell_size // 2,
+                                        rect[1] + self.cell_size // 2),
+                                       self.cell_size // 2 - 4)
+                pygame.draw.rect(screen, (255, 255, 255), rect, 1)
 
 
 pygame.init()
 size = width, height = 500, 500
 screen = pygame.display.set_mode(size)
-board = Board(3, 3)
-board.set_view(100, 100, 100)
+board = Board(8, 8)
+board.set_view(40, 40, 50)
 running = True
 while running:
     for event in pygame.event.get():
