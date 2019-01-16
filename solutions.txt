@@ -1,0 +1,15 @@
+репозиторий: https://github.com/MartsinovichDanya/PyGame
+
+Крест - krest.py
+Прямоугольник - rectangle.py
+Шахмотная клетка - shahmotnaya_kletka.py
+Мишень - target.py
+Сфера - sphere.py
+Ромбики - rombiki.py
+Куб - cube.py
+Желтый круг - yellow_circle.py
+Шарики - balls.py
+Я слежу за тобой! - watchingyou.py
+Вентилятор - ventilator.py
+Жизнь на торе - life_on_tor.py
+Свой курсор мыши - my_cursor.py
