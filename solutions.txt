@@ -13,3 +13,4 @@
 Вентилятор - ventilator.py
 Жизнь на торе - life_on_tor.py
 Свой курсор мыши - my_cursor.py
+Герой двигается! - hero.py
