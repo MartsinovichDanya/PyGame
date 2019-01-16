@@ -1,7 +1,6 @@
 import pygame
 from board import Board
 import numpy as np
-from time import sleep
 
 
 class Life(Board):
@@ -34,7 +33,8 @@ board = Life(8, 8)
 board.set_view(40, 40, 50)
 running = True
 start_live = False
-pause = 0.6
+clock = pygame.time.Clock()
+fps = 5
 while running:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -45,18 +45,18 @@ while running:
                 board.fix()
         if start_live:
             if event.type == pygame.MOUSEBUTTONDOWN:
-                if event.button == 5:
-                    pause += 0.15
+                if event.button == 4:
+                    fps += 1
                 else:
-                    pause -= 0.15
-                    if pause < 0:
-                        pause = 0
+                    fps -= 1
+                    if fps < 1:
+                        fps = 1
             continue
         if event.type == pygame.MOUSEBUTTONDOWN:
             board.get_click(event.pos)
     screen.fill((0, 0, 0))
     if start_live:
+        clock.tick(fps)
         board.next_move()
-        sleep(pause)
     board.render(screen)
     pygame.display.flip()
