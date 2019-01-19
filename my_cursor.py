@@ -17,8 +17,8 @@ def load_image(name, colorkey=None):
     return image
 
 
-pygame.init()
 uinput = [int(el) for el in input().split()]
+pygame.init()
 size = width, height = uinput[0], uinput[1]
 screen = pygame.display.set_mode(size)
 screen.fill((0, 0, 0))
