@@ -15,3 +15,4 @@
 Свой курсор мыши - my_cursor.py
 Герой двигается! - hero.py
 Boom them all - boom_them_all.py
+Пересечение кругов «вручную» - circles.py
