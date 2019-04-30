@@ -17,3 +17,5 @@
 Boom them all - boom_them_all.py
 Пересечение кругов «вручную» - circles.py
 Перемещение героя - mario.py
+Кирпичи - bricks.py
+Game over - game_over.py
